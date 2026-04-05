@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GREEN-API Test Task</title>
+    <link rel="icon" type="image/png" href="./assets/favicon-rounded.png" />
+    <link rel="apple-touch-icon" href="./assets/favicon-rounded.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <!-- Browser shell to match the task mockup -->
+      <div class="browser-frame" aria-hidden="true">
+        <div class="browser-top">
+          <div class="traffic-lights">
+            <span class="light light-red"></span>
+            <span class="light light-yellow"></span>
+            <span class="light light-green"></span>
+          </div>
+          <div class="tab-stub"></div>
+        </div>
+        <div class="browser-toolbar">
+          <button id="navBack" class="nav-button" type="button" aria-label="Назад">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.5 6 8.5 12l6 6" />
+              <path d="M9 12h7" />
+            </svg>
+          </button>
+          <button id="navForward" class="nav-button" type="button" aria-label="Вперед">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9.5 6 6 6-6 6" />
+              <path d="M15 12H8" />
+            </svg>
+          </button>
+          <button id="navRefresh" class="nav-button" type="button" aria-label="Сбросить форму">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 1-2.34-5.66" />
+              <path d="M20 4v6h-6" />
+            </svg>
+          </button>
+          <div id="requestUrlPreview" class="address-bar">https://api.green-api.com/waInstance{idInstance}/getSettings/{apiTokenInstance}</div>
+          <button id="themeToggle" class="nav-button theme-button" type="button" aria-label="Переключить тему">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"></path>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 15.2A8.5 8.5 0 1 1 8.8 4 6.7 6.7 0 0 0 20 15.2Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main application area -->
+      <main class="app-card">
+        <section class="controls-panel" aria-label="Управление методами">
+          <div class="instance-credentials">
+            <label class="field">
+              <span class="field-label">idInstance</span>
+              <input id="idInstance" name="idInstance" type="text" autocomplete="off" placeholder="110100001" />
+            </label>
+
+            <label class="field">
+              <span class="field-label">ApiTokenInstance</span>
+              <input id="apiTokenInstance" name="apiTokenInstance" type="password" autocomplete="off" placeholder="ApiTokenInstance" />
+            </label>
+          </div>
+
+          <div class="method-group">
+            <button class="action-button" data-method="getSettings" type="button">getSettings</button>
+            <button class="action-button" data-method="getStateInstance" type="button">getStateInstance</button>
+          </div>
+
+          <div class="method-group">
+            <label class="field">
+              <span class="field-label">chatId / phone</span>
+              <input id="messageChatId" name="messageChatId" type="text" autocomplete="off" placeholder="77771234567" />
+            </label>
+
+            <label class="field">
+              <span class="field-label">message</span>
+              <textarea id="messageText" name="messageText" rows="3" placeholder="Hello world!"></textarea>
+            </label>
+
+            <button class="action-button" data-method="sendMessage" type="button">sendMessage</button>
+          </div>
+
+          <div class="method-group">
+            <label class="field">
+              <span class="field-label">chatId / phone</span>
+              <input id="fileChatId" name="fileChatId" type="text" autocomplete="off" placeholder="77771234567" />
+            </label>
+
+            <label class="field">
+              <span class="field-label">file URL</span>
+              <textarea id="fileUrl" name="fileUrl" rows="3" placeholder="https://my.site.com/img/horse.png"></textarea>
+            </label>
+
+            <button class="action-button" data-method="sendFileByUrl" type="button">sendFileByUrl</button>
+          </div>
+
+          <p class="hint">
+            Номер можно вводить без суффикса. Приложение автоматически приведет его к формату
+            <code>@c.us</code>.
+          </p>
+        </section>
+
+        <section class="response-panel" aria-label="Ответ API">
+          <div class="response-header">
+            <div>
+              <h1>Ответ</h1>
+              <p>JSON-ответ выбранного метода GREEN-API</p>
+            </div>
+            <div id="statusBadge" class="status-badge status-idle">Готово</div>
+          </div>
+
+          <textarea id="responseOutput" class="response-output" readonly spellcheck="false">{
+  "message": "Здесь появится ответ GREEN-API"
+}</textarea>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
+
+
+
+
