@@ -74,7 +74,8 @@
 
   sameSnapshot(left, right) {
     return (
-      left.idInstance === right.idInstance
+      left.apiBaseUrl === right.apiBaseUrl
+      && left.idInstance === right.idInstance
       && left.apiTokenInstance === right.apiTokenInstance
       && left.messageChatId === right.messageChatId
       && left.messageText === right.messageText

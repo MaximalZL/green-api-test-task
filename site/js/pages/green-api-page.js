@@ -13,6 +13,7 @@ export class GreenApiPage {
     this.currentStatusType = config.defaultStatus.type;
     this.currentPreviewMethod = config.defaultPreviewMethod;
     this.formFields = [
+      this.elements.apiBaseUrl,
       this.elements.idInstance,
       this.elements.apiTokenInstance,
       this.elements.messageChatId,
@@ -23,6 +24,7 @@ export class GreenApiPage {
   }
 
   init() {
+    this.elements.apiBaseUrl.value = this.config.apiBaseUrl;
     this.themeManager.restore();
     this.bindUi();
     this.renderResponse(this.config.defaultResponse);
@@ -33,6 +35,7 @@ export class GreenApiPage {
 
   getElements() {
     return {
+      apiBaseUrl: document.querySelector("#apiBaseUrl"),
       idInstance: document.querySelector("#idInstance"),
       apiTokenInstance: document.querySelector("#apiTokenInstance"),
       messageChatId: document.querySelector("#messageChatId"),
@@ -142,10 +145,9 @@ export class GreenApiPage {
   }
 
   updateRequestPreview() {
-    this.elements.requestUrlPreview.textContent = this.client.buildMethodUrl(
-      this.currentPreviewMethod,
-      this.readCredentials()
-    );
+    const previewUrl = this.client.buildMethodUrl(this.currentPreviewMethod, this.readCredentials());
+    this.elements.requestUrlPreview.textContent = previewUrl;
+    this.elements.requestUrlPreview.title = previewUrl;
   }
 
   scheduleSnapshotSave() {
@@ -166,6 +168,7 @@ export class GreenApiPage {
 
   makeSnapshot() {
     return {
+      apiBaseUrl: this.elements.apiBaseUrl.value,
       idInstance: this.elements.idInstance.value,
       apiTokenInstance: this.elements.apiTokenInstance.value,
       messageChatId: this.elements.messageChatId.value,
@@ -180,6 +183,7 @@ export class GreenApiPage {
   }
 
   restoreSnapshot(snapshot) {
+    this.elements.apiBaseUrl.value = snapshot.apiBaseUrl;
     this.elements.idInstance.value = snapshot.idInstance;
     this.elements.apiTokenInstance.value = snapshot.apiTokenInstance;
     this.elements.messageChatId.value = snapshot.messageChatId;
@@ -195,6 +199,7 @@ export class GreenApiPage {
   resetForm() {
     window.clearTimeout(this.commitTimer);
 
+    this.elements.apiBaseUrl.value = this.config.apiBaseUrl;
     this.elements.idInstance.value = "";
     this.elements.apiTokenInstance.value = "";
     this.elements.messageChatId.value = "";
@@ -215,6 +220,7 @@ export class GreenApiPage {
 
   readCredentials() {
     return {
+      apiBaseUrl: this.getApiBaseUrl(false),
       idInstance: this.elements.idInstance.value,
       apiTokenInstance: this.elements.apiTokenInstance.value
     };
@@ -224,9 +230,28 @@ export class GreenApiPage {
     const credentials = this.readCredentials();
 
     return {
+      apiBaseUrl: this.getApiBaseUrl(true),
       idInstance: this.requireValue(credentials.idInstance, "Введите idInstance"),
       apiTokenInstance: this.requireValue(credentials.apiTokenInstance, "Введите ApiTokenInstance")
     };
+  }
+
+  getApiBaseUrl(strict = true) {
+    const rawValue = this.elements.apiBaseUrl.value.trim();
+
+    if (!rawValue) {
+      return this.config.apiBaseUrl;
+    }
+
+    if (!strict) {
+      return rawValue.replace(/\/+$/, "");
+    }
+
+    try {
+      return new URL(rawValue).toString().replace(/\/+$/, "");
+    } catch {
+      throw new Error("API URL должен быть валидным адресом");
+    }
   }
 
   buildMessagePayload() {
@@ -311,4 +336,3 @@ export class GreenApiPage {
     this.elements.statusBadge.textContent = text;
   }
 }
-
