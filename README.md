@@ -17,7 +17,6 @@
 ```text
 .
 ├── .github/workflows/deploy-pages.yml
-├── docs/
 ├── site/
 │   ├── index.html
 │   ├── main.js
@@ -56,3 +55,8 @@ docker compose up --build
 - [GetStateInstance](https://green-api.com/en/docs/api/account/GetStateInstance/)
 - [SendMessage](https://green-api.com/en/docs/api/sending/SendMessage/)
 - [SendFileByUrl](https://green-api.com/en/docs/api/sending/SendFileByUrl/)
+
+## Использование
+
+Проект опубликован только для просмотра как тестовое задание.
+Переиспользование без разрешения автора запрещено. Подробнее в `LICENSE`.
