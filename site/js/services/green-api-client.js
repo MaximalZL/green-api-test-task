@@ -4,10 +4,11 @@
   }
 
   buildMethodUrl(apiMethod, credentials = {}) {
+    const baseUrl = this.normalizeBaseUrl(credentials.apiBaseUrl || this.apiBaseUrl);
     const idInstance = credentials.idInstance?.trim() || "{idInstance}";
     const apiTokenInstance = credentials.apiTokenInstance?.trim() || "{apiTokenInstance}";
 
-    return `${this.apiBaseUrl}/waInstance${idInstance}/${apiMethod}/${apiTokenInstance}`;
+    return `${baseUrl}/waInstance${idInstance}/${apiMethod}/${apiTokenInstance}`;
   }
 
   getSettings(credentials) {
@@ -78,5 +79,9 @@
     }
 
     return JSON.stringify(responseBody, null, 2);
+  }
+
+  normalizeBaseUrl(value) {
+    return value.replace(/\/+$/, "");
   }
 }

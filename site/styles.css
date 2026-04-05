@@ -186,11 +186,14 @@ html[data-theme="dark"] .theme-icon-moon {
 }
 
 .address-bar {
-  flex: 1;
-  min-height: 34px;
-  display: flex;
-  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px;
   padding: 0 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 32px;
   border: 1.5px solid var(--border-soft);
   border-radius: 999px;
   background: color-mix(in srgb, var(--field-bg) 92%, transparent 8%);

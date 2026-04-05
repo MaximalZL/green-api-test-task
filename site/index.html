@@ -57,6 +57,11 @@
         <section class="controls-panel" aria-label="Управление методами">
           <div class="instance-credentials">
             <label class="field">
+              <span class="field-label">API URL</span>
+              <input id="apiBaseUrl" name="apiBaseUrl" type="text" autocomplete="off" placeholder="https://api.green-api.com" />
+            </label>
+
+            <label class="field">
               <span class="field-label">idInstance</span>
               <input id="idInstance" name="idInstance" type="text" autocomplete="off" placeholder="110100001" />
             </label>
@@ -101,8 +106,8 @@
           </div>
 
           <p class="hint">
-            Номер можно вводить без суффикса. Приложение автоматически приведет его к формату
-            <code>@c.us</code>.
+            Если поле <code>API URL</code> пустое, используется адрес по умолчанию. Номер можно вводить без суффикса,
+            приложение автоматически приведет его к формату <code>@c.us</code>.
           </p>
         </section>
 
@@ -125,7 +130,3 @@
     <script type="module" src="./main.js"></script>
   </body>
 </html>
-
-
-
-
